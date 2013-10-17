@@ -26,7 +26,7 @@ dest_id and dest_key are API keys for amazon s3 account
 ```
 hermannherbarium:
   www.hermann-herbarium.nl:
-    serveraliases: 'lianas-org-guyana.org'
+    serveraliases: 'hermann-herbarium.nl'
     docroot: /var/www/hermannherbarium
     port: 80
     ssl: no
@@ -41,7 +41,7 @@ hermannherbarium::dest_key: 'provider_key'
 hermannherbarium::bucket: 'hermannherbarium'
 hermannherbarium::ftpserver: true
 hermannherbarium::ftpusers:
-  wwwlianas-of-guyana:
+  wwwhermann-herbarium:
     comment: "FTP User"
     home: "/var/www/hermannherbarium"
     password: "$1$A6ZSNQVG$hnRIP/LfJQNRyuEAwmssK/"
