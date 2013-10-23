@@ -25,7 +25,7 @@ class hermannherbarium (
   $coderoot = '/var/www/hermannherbarium',
   $webdirs = ['/var/www/hermannherbarium'],
   $ftpserver = false,
-  $ftpbanner = 'lianas of guyana FTP server',
+  $ftpbanner = 'Hermann herbarium FTP server',
   $ftpusers = undef,
 ) {
 
