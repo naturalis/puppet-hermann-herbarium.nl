@@ -15,6 +15,7 @@ class hermannherbarium (
   $backupdir = '/tmp/backups',
   $restore_directory = '/tmp/restore',
   $bucket = 'hermannherbarium',
+  $bucketfolder = 'backups',
   $dest_id = undef,
   $dest_key = undef,
   $cloud = 's3',
@@ -79,6 +80,7 @@ class hermannherbarium (
       backuphour         => $backuphour,
       backupminute       => $backupminute,
       backupdir          => $backupdir,
+      folder             => $bucketfolder,
       bucket             => $bucket,
       dest_id            => $dest_id,
       dest_key           => $dest_key,
@@ -93,6 +95,7 @@ class hermannherbarium (
     class { 'hermannherbarium::restore':
       version     => $restoreversion,
       bucket      => $bucket,
+      folder      => $bucketfolder,
       dest_id     => $dest_id,
       dest_key    => $dest_key,
       cloud       => $cloud,
