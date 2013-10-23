@@ -1,42 +1,14 @@
+#
 # == Class: hermannherbarium
-#
-# Full description of class lianas-of-guyana.org here.
-#
-# === Parameters
-#
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
-#
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
-#
-# === Examples
-#
-#  class { hermannherbarium:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
 #
 # === Authors
 #
 # Author Name : Hugo van Duijn <hugo,vanduijn@naturalis.nl>
 #
-# === Copyright
-#
-# 
 #
 class hermannherbarium (
   $backup = false,
+  $restore = false,
   $backuphour = 1,
   $backupminute = 1,
   $version = 'latest',
@@ -58,11 +30,11 @@ class hermannherbarium (
 
   include concat::setup
 
+  # Include apache modules with php
   class { 'apache':
     default_mods => true,
     mpm_module => 'prefork',
   }
-
   include apache::mod::php
 
   # Create all virtual hosts from hiera
@@ -86,7 +58,6 @@ class hermannherbarium (
     ensure	=> present,
   }
 
-
   file { $webdirs:
     ensure      => 'directory',
     mode        => '0775',
@@ -94,8 +65,6 @@ class hermannherbarium (
     owner       => 'root',
     require     => Group['webusers'],
   }
-
-
 
   if $ftpserver == true {
     class { 'hermannherbarium::ftpserver':
@@ -120,12 +89,14 @@ class hermannherbarium (
     }
   }
 
-  class { 'hermannherbarium::restore':
-    version     => $restoreversion,
-    bucket      => $bucket,
-    dest_id     => $dest_id,
-    dest_key    => $dest_key,
-    cloud       => $cloud,
-    pubkey_id   => $pubkey_id,
+  if $restore == true {
+    class { 'hermannherbarium::restore':
+      version     => $restoreversion,
+      bucket      => $bucket,
+      dest_id     => $dest_id,
+      dest_key    => $dest_key,
+      cloud       => $cloud,
+      pubkey_id   => $pubkey_id,
+    }
   }
 }

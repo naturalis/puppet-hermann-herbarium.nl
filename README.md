@@ -5,7 +5,7 @@ Puppet modules for deployment of www.hermann-herbarium.nl.
 
 Parameters
 -------------
-All parameters are read from hiera
+All parameters are read from hiera.
 
 Classes
 -------------
@@ -32,6 +32,7 @@ hermannherbarium:
     ssl: no
     priority: 10
     serveradmin: aut@naturalis.nl
+hermannherbarium::restore: true
 hermannherbarium::backup: true
 hermannherbarium::backuphour: 3
 hermannherbarium::backupminute: 3
@@ -53,7 +54,7 @@ class { hermannherbarium: }
 ```
 Result
 -------------
-Working webserver, restored from latest backup version. with daily backup and FTP server access.
+Working webserver, if restore: true then restored from latest backup version. with daily backup and FTP server access. 
 
 Limitations
 -------------
