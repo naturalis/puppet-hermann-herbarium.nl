@@ -19,6 +19,18 @@ class hermannherbarium::ftpserver (
 {
   notify {'FTP Server enabled':}
 
+  firewall { '150 allow ftp access':
+    port   => [20, 21],
+    proto  => tcp,
+    action => accept,
+  }
+
+  firewall { '200 allow passive ftp port range':
+    port   => ["$pasv_min_port-$pasv_max_port"],
+    proto  => tcp,
+    action => accept,
+  }
+
   create_resources('hermannherbarium::ftpusers', hiera('hermannherbarium::ftpusers', []))
 
   file { $chroot_list_file:
